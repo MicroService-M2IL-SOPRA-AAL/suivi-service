@@ -1,6 +1,7 @@
 package com.microservice.suiviservice.web.controller;
 
 import com.microservice.suiviservice.dao.SuiviDao;
+import com.microservice.suiviservice.model.Etat;
 import com.microservice.suiviservice.model.Suivi;
 import com.microservice.suiviservice.web.exception.SuiviIntrouvableException;
 import io.swagger.annotations.Api;
@@ -10,10 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -41,29 +40,14 @@ public class SuiviController {
         return suiviDao.findById(id).orElseThrow(() -> new SuiviIntrouvableException("Le suivi avec l'id " + id + " est INTROUVABLE"));
     }
 
-    //créer un suivi de commande
-    @ApiOperation(value = "Permet d'initialiser un suivi !")
-    @PostMapping(value = "/Suivis")
-    public ResponseEntity<Void> creerSuivi(@RequestBody Suivi suivi) {
-        logger.info("Début d'appel au service Suivis pour la requête : " + requestContext.getHeader("req-id"));
-        Suivi suiviAdded = suiviDao.save(suivi);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(suiviAdded.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
-    }
-
     //définir l'état d'un suivi de commande
-    @ApiOperation(value = "Permet de définir l'état d'un suivi de commande !")
-    @PostMapping(value = "/Suivis/{id}/etat")
-    public ResponseEntity<Void> setEtatSuivi(@PathVariable int id, @RequestBody String etat) {
+    @ApiOperation(value = "Permet de mettre à jour l'état d'un suivi de commande !")
+    @PutMapping(value = "/Suivis/{id}/etat")
+    public void setEtatSuivi(@PathVariable int id, @RequestBody Etat etat) {
         logger.info("Début d'appel au service Suivis pour la requête : " + requestContext.getHeader("req-id"));
-
-        // TODO
-        return null;
+        Suivi suivi = suiviDao.findById(id).orElseThrow(() -> new SuiviIntrouvableException("Le suivi avec l'id " + id + " est INTROUVABLE"));
+        suivi.setEtat(etat);
+        suiviDao.save(suivi);
     }
 
 }
