@@ -1,10 +1,7 @@
-package com.microservice.commandesservice.model;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
+package com.microservice.suiviservice.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
 
 @Entity
 public class Suivi {
@@ -12,7 +9,7 @@ public class Suivi {
 //    @GeneratedValue
     private int id;
     private int idCommande;
-    private Etat etat; 
+    private Etat etat;
 
     public Suivi(int id, int idCommande, Etat etat) {
         this.id = id;
@@ -27,11 +24,19 @@ public class Suivi {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getIdCommande() {
         return idCommande;
     }
 
-    public void getEtat() {
+    public void setIdCommande(int idCommande) {
+        this.idCommande = idCommande;
+    }
+
+    public Etat getEtat() {
         return etat;
     }
 
@@ -39,13 +44,12 @@ public class Suivi {
         this.etat = etat;
     }
 
-
     @Override
     public String toString() {
-        return "Commande{" +
+        return "Suivi{" +
                 "id=" + id +
+                ", idCommande=" + idCommande +
                 ", etat=" + etat +
-                ", prix=" + prix +
                 '}';
     }
 }

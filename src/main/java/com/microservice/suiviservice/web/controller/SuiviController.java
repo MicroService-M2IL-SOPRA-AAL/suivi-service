@@ -2,7 +2,7 @@ package com.microservice.suiviservice.web.controller;
 
 import com.microservice.suiviservice.dao.SuiviDao;
 import com.microservice.suiviservice.model.Suivi;
-import com.microservice.suiviservice.web.exceptions.SuiviIntrouvableException;
+import com.microservice.suiviservice.web.exception.SuiviIntrouvableException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -61,9 +61,9 @@ public class SuiviController {
     @PostMapping(value = "/Suivis/{id}/etat")
     public ResponseEntity<Void> setEtatSuivi(@PathVariable int id, @RequestBody String etat) {
         logger.info("Début d'appel au service Suivis pour la requête : " + requestContext.getHeader("req-id"));
-        
-        // TODO
 
+        // TODO
+        return null;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.suiviservice;
+package com.microservice.suiviservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
