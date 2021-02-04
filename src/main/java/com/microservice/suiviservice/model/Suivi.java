@@ -2,6 +2,7 @@ package com.microservice.suiviservice.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 public class Suivi {
@@ -16,6 +17,14 @@ public class Suivi {
     }
 
     public Suivi() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Etat getEtat() {

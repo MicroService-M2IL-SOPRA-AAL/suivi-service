@@ -43,10 +43,9 @@ public class SuiviController {
     //définir l'état d'un suivi de commande
     @ApiOperation(value = "Permet de mettre à jour l'état d'un suivi de commande !")
     @PutMapping(value = "/Suivis/{id}/etat")
-    public void setEtatSuivi(@PathVariable int id, @RequestBody Etat etat) {
+    public void setEtatSuivi(@RequestBody Suivi suivi) {
         logger.info("Début d'appel au service Suivis pour la requête : " + requestContext.getHeader("req-id"));
-        Suivi suivi = suiviDao.findById(id).orElseThrow(() -> new SuiviIntrouvableException("Le suivi avec l'id " + id + " est INTROUVABLE"));
-        suivi.setEtat(etat);
+        suiviDao.findById(suivi.getId()).orElseThrow(() -> new SuiviIntrouvableException("Le suivi avec l'id " + suivi.getId() + " est INTROUVABLE"));
         suiviDao.save(suivi);
     }
 
